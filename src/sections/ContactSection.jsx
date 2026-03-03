@@ -1,77 +1,137 @@
-// src/sections/ContactSection.jsx
-import React from "react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 
 export default function ContactSection({ onClose }) {
-  return (
-    <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-auto px-6">
-      <div className="max-w-4xl w-full bg-white/10 backdrop-blur-md rounded-2xl p-8 flex flex-col md:flex-row gap-8 text-white">
-        
-        {/* Left Side - Contact Info */}
-        <div className="flex-1 flex flex-col gap-6">
-          <h2 className="text-4xl font-bold">Contact Me</h2>
-          <p className="text-lg text-white/90">
-            Feel free to connect with me or send a message below.
-          </p>
+  const formRef = useRef();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-          <div className="flex gap-6 text-3xl">
-            <a href="https://github.com/YourUsername" target="_blank" rel="noopener noreferrer">
-              <FaGithub />
-            </a>
-            <a href="https://www.linkedin.com/in/YourUsername" target="_blank" rel="noopener noreferrer">
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs
+      .sendForm(
+        "service_q1xfipw",
+        "template_dlcs9as",
+        formRef.current,
+        "EyPCc7ZBgZ9dVoCw3"
+      )
+      .then(
+        () => {
+          setLoading(false);
+          setSuccess(true);
+          formRef.current.reset();
+        },
+        (error) => {
+          setLoading(false);
+          alert("Failed to send message.");
+          console.error(error);
+        }
+      );
+  };
+
+  return (
+    <div className="absolute inset-0 z-20 flex items-center justify-start px-10 py-20 pointer-events-auto">
+
+      {/* Left Frosted Glass Box */}
+      <div className="flex-1 max-w-xl relative">
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 space-y-6 text-white relative">
+
+          {/* Close Button */}
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 text-white text-3xl font-bold hover:text-red-400"
+            >
+              ✕
+            </button>
+          )}
+
+          <h2 className="text-4xl font-bold">Contact Me</h2>
+
+          {success ? (
+            <p className="text-green-400 text-lg">
+              Message sent successfully 🚀
+            </p>
+          ) : (
+            <form
+              ref={formRef}
+              onSubmit={sendEmail}
+              className="flex flex-col gap-4"
+            >
+              <input
+                type="text"
+                name="user_name"
+                placeholder="Your Name"
+                required
+                className="p-3 rounded bg-white/20 outline-none"
+              />
+
+              <input
+                type="email"
+                name="user_email"
+                placeholder="Your Email"
+                required
+                className="p-3 rounded bg-white/20 outline-none"
+              />
+
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                required
+                rows="4"
+                className="p-3 rounded bg-white/20 outline-none"
+              />
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition"
+              >
+                {loading ? "Sending..." : "Send Message"}
+              </button>
+            </form>
+          )}
+
+          {/* Social Links */}
+          <div className="flex gap-6 pt-4 text-2xl">
+            <a
+              href="https://www.linkedin.com/in/YOUR_USERNAME"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-400 transition"
+            >
               <FaLinkedin />
             </a>
-            <a href="https://leetcode.com/YourUsername" target="_blank" rel="noopener noreferrer">
+
+            <a
+              href="https://github.com/YOUR_USERNAME"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-300 transition"
+            >
+              <FaGithub />
+            </a>
+
+            <a
+              href="https://leetcode.com/YOUR_USERNAME"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-yellow-400 transition"
+            >
               <SiLeetcode />
             </a>
           </div>
-        </div>
 
-        {/* Right Side - Contact Form */}
-        <div className="flex-1">
-          <form
-            className="flex flex-col gap-4"
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Message sent!");
-            }}
-          >
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="w-full px-4 py-2 rounded-md bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
-              required
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              className="w-full px-4 py-2 rounded-md bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
-              required
-            />
-            <textarea
-              placeholder="Your Message"
-              rows={4}
-              className="w-full px-4 py-2 rounded-md bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
-              required
-            />
-            <button
-              type="submit"
-              className="px-6 py-3 bg-aqua rounded-full text-black font-semibold hover:bg-mint transition-colors"
-            >
-              Send
-            </button>
-          </form>
         </div>
-
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-1 right-2 text-white text-2xl font-bold"
-        >
-          ✕
-        </button>
       </div>
+
+      {/* Right Side Empty Space */}
+      <div className="flex-1"></div>
+
     </div>
   );
 }
