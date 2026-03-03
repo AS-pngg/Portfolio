@@ -8,19 +8,19 @@ export default function ProjectsSection({ onClose }) {
       title: "Portfolio Website",
       description:
         "A modern 3D portfolio built with React Three Fiber, showcasing interactive 3D elements and responsive design.",
-      github: "https://github.com/AnanyaSingh/portfolio",
+      github: "https://github.com/AS-pngg/Portfolio",
     },
     {
-      title: "E-commerce App",
+      title: "Mini Shell (C)",
       description:
-        "Full-stack e-commerce platform with cart, checkout, and payment integration using MERN stack.",
-      github: "https://github.com/AnanyaSingh/ecommerce-app",
+        "A basic Unix-like shell implemented in C that executes user commands using system-level programming concepts.",
+      github: "https://github.com/AS-pngg/mini-shell",
     },
     {
-      title: "Chat Application",
+      title: "Green Path",
       description:
-        "Real-time chat application with rooms, notifications, and authentication, using Node.js and Socket.IO.",
-      github: "https://github.com/AnanyaSingh/chat-app",
+        "A frontend web application developed as part of Smart India Hackathon (SIH).",
+      github: "https://github.com/AS-pngg/The-Green-Path",
     },
   ];
 

@@ -99,7 +99,7 @@ export default function ContactSection({ onClose }) {
           {/* Social Links */}
           <div className="flex gap-6 pt-4 text-2xl">
             <a
-              href="https://www.linkedin.com/in/YOUR_USERNAME"
+              href="https://www.linkedin.com/in/ananya-singh-943739326/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-blue-400 transition"
@@ -108,7 +108,7 @@ export default function ContactSection({ onClose }) {
             </a>
 
             <a
-              href="https://github.com/YOUR_USERNAME"
+              href="https://github.com/AS-pngg"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-gray-300 transition"
@@ -117,7 +117,7 @@ export default function ContactSection({ onClose }) {
             </a>
 
             <a
-              href="https://leetcode.com/YOUR_USERNAME"
+              href="https://leetcode.com/u/Ananya_Singh123/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-yellow-400 transition"
