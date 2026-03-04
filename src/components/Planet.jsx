@@ -63,7 +63,7 @@ export default function Planet({
         ref={meshRef}
         onClick={() => onSelect(title)}
       >
-        <sphereGeometry args={[size, 64, 64]} />
+        <sphereGeometry args={[size, 16, 16]} />
         <meshStandardMaterial map={planetTexture} />
       </mesh>
 
@@ -75,7 +75,7 @@ export default function Planet({
           rotation={[moon.tilt || 0, 0, 0]} 
         >
           <mesh position={[moon.distance, 0, 0]}>
-            <sphereGeometry args={[moon.size, 32, 32]} />
+            <sphereGeometry args={[moon.size, 8, 8]} />
             <meshStandardMaterial
               map={
                 Array.isArray(loadedMoonTextures)

@@ -17,9 +17,9 @@ export default function Space() {
   });
 
   return (
-    <mesh ref={meshRef} scale={500}>
+    <mesh ref={meshRef} scale={45}>
       {/* Sphere geometry */}
-      <sphereGeometry args={[1, 128, 128]} />
+      <sphereGeometry args={[1, 8, 8]} />
 
       {/* Material rendered from inside */}
       <meshBasicMaterial
