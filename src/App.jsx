@@ -136,6 +136,11 @@ export default function App() {
         <Hero />
       </section>
 
+      <img
+  src="/1.jpg"
+  className="w-20 h-20 rounded-full mx-auto mb-6 shadow-lg"
+/>
+
       <section className="snap-start min-h-screen flex items-center justify-center px-6">
         <AboutSection isMobile={isMobile} />
       </section>
