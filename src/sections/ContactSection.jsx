@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
@@ -7,6 +7,14 @@ export default function ContactSection({ onClose }) {
   const formRef = useRef();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -14,10 +22,10 @@ export default function ContactSection({ onClose }) {
 
     emailjs
       .sendForm(
-        "service_q1xfipw",
-        "template_dlcs9as",
+        import.meta.env.VITE_EMAIL_SERVICE,
+        import.meta.env.VITE_EMAIL_TEMPLATE,
         formRef.current,
-        "EyPCc7ZBgZ9dVoCw3"
+        import.meta.env.VITE_EMAIL_PUBLIC_KEY
       )
       .then(
         () => {
@@ -34,10 +42,21 @@ export default function ContactSection({ onClose }) {
   };
 
   return (
-    <div className="absolute inset-0 z-20 flex items-center justify-start px-10 py-20 pointer-events-auto">
+    <div
+      className={`z-20 pointer-events-auto
+      ${
+        isMobile
+          ? "relative w-full flex justify-center px-6 py-24"
+          : "absolute inset-0 flex items-center justify-start px-10 py-20"
+      }`}
+    >
 
       {/* Left Frosted Glass Box */}
-      <div className="flex-1 max-w-xl relative">
+      <div
+        className={`relative
+        ${isMobile ? "w-full max-w-md" : "flex-1 max-w-xl"}
+      `}
+      >
         <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 space-y-6 text-white relative">
 
           {/* Close Button */}
@@ -129,8 +148,8 @@ export default function ContactSection({ onClose }) {
         </div>
       </div>
 
-      {/* Right Side Empty Space */}
-      <div className="flex-1"></div>
+      {/* Right Side Empty Space (desktop only) */}
+      {!isMobile && <div className="flex-1"></div>}
 
     </div>
   );

@@ -114,3 +114,19 @@ body {
 .animate-scrollWheel {
   animation: scrollWheel 1.5s infinite;
 }
+
+@keyframes skillFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.skillFloat {
+  animation: skillFloat 3s ease-in-out infinite;
+}
