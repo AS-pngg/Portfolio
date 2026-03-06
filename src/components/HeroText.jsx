@@ -73,7 +73,7 @@ const HeroText = () => {
             animate="visible"
             transition={{ delay: 1.2 }}
           >
-            Building
+            A CS Student <br /> Passionate About
           </motion.p>
           <motion.div
             variants={variants}
@@ -93,7 +93,7 @@ const HeroText = () => {
             animate="visible"
             transition={{ delay: 1.8 }}
           >
-            Web Applications
+             Innovations
           </motion.p>
         </div>
       </div>

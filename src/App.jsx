@@ -12,7 +12,7 @@ import ProjectsSection from "./sections/ProjectSection";
 import SkillSection from "./sections/SkillSection";
 import ContactSection from "./sections/ContactSection";
 
-/* 🔹 Mobile Detection Hook */
+/* 🔹 Mobile Detection */
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -26,6 +26,22 @@ function useIsMobile() {
   return isMobile;
 }
 
+/* 🔹 Slow Network Detection */
+function useSlowNetwork() {
+  const [isSlow, setIsSlow] = useState(false);
+
+  useEffect(() => {
+    if (navigator.connection) {
+      const type = navigator.connection.effectiveType;
+      if (type === "2g" || type === "slow-2g") {
+        setIsSlow(true);
+      }
+    }
+  }, []);
+
+  return isSlow;
+}
+
 export default function App() {
   const [selectedPlanet, setSelectedPlanet] = useState(null);
   const [activeSection, setActiveSection] = useState(null);
@@ -34,10 +50,13 @@ export default function App() {
   );
 
   const isMobile = useIsMobile();
+  const isSlowNetwork = useSlowNetwork();
+
+  const use3D = !isMobile && !isSlowNetwork;
 
   const defaultCameraPosition = [0, 0, 15];
 
-  /* 🌍 Planet Data (Memoized for Performance) */
+  /* 🌍 Planet Data */
   const planets = useMemo(
     () => [
       {
@@ -97,16 +116,16 @@ export default function App() {
         />
       </div>
 
-      {/* ================= MOBILE FALLBACK ================= */}
-      {isMobile && (
+      {/* ================= MOBILE / SLOW INTERNET BACKGROUND ================= */}
+      {!use3D && (
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/space-mobile.jpg')" }}
+          style={{ backgroundImage: "/milkyway.jpg" }}
         />
       )}
 
       {/* ================= DESKTOP 3D ================= */}
-      {!isMobile && (
+      {use3D && (
         <Canvas
           className="absolute inset-0 z-0"
           camera={{
@@ -115,25 +134,28 @@ export default function App() {
             near: 0.1,
             far: 1000,
           }}
-          dpr={[1, 1.5]}                 // Limit pixel density
-          performance={{ min: 0.5 }}     // Auto performance scaling
-          gl={{ antialias: false }}      // Reduce GPU load
+          dpr={[1, 1.3]}               // Lower pixel density
+          performance={{ min: 0.5 }}   // Auto performance scale
+          gl={{
+            antialias: false,
+            powerPreference: "low-power",
+          }}
           onPointerMissed={() => {
             setSelectedPlanet(null);
             setActiveSection(null);
           }}
         >
-          {/* Auto performance tools */}
+          {/* Auto Performance */}
           <AdaptiveDpr pixelated />
           <AdaptiveEvents />
 
-          {/* Optimized Lighting */}
-          <ambientLight intensity={0.4} />
-          <directionalLight position={[5, 5, 5]} intensity={1.5} />
+          {/* Lighting */}
+          <ambientLight intensity={0.35} />
+          <directionalLight position={[5, 5, 5]} intensity={1.3} />
 
-          <Space/>
+          <Space />
 
-          {/* 🌍 Render Planets */}
+          {/* PLANETS */}
           {planets.map((planet) => {
             if (activeSection && activeSection !== planet.name) return null;
 
@@ -180,8 +202,8 @@ export default function App() {
         <Hero />
       </div>
 
-      {/* Interaction Hint */}
-      {showHint && !selectedPlanet && !isMobile && (
+      {/* SCROLL HINT */}
+      {showHint && !selectedPlanet && use3D && (
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-center">
           <div className="flex flex-col items-center">
             <div className="relative w-6 h-10 border-2 border-white/60 rounded-full flex justify-center">
