@@ -1,7 +1,7 @@
 // src/sections/ProjectsSection.jsx
 import { FaGithub } from "react-icons/fa";
 
-export default function ProjectsSection({ onClose }) {
+export default function ProjectsSection({ onClose, isMobile }) {
 
   const projects = [
     {
@@ -28,13 +28,27 @@ export default function ProjectsSection({ onClose }) {
   ];
 
   return (
-    <div className="absolute inset-0 z-20 flex items-start md:items-start justify-center md:justify-start px-4 md:px-10 py-16 md:py-20 pointer-events-auto overflow-y-auto">
+    <div
+      className={`
+      z-20 pointer-events-auto
+      ${
+        isMobile
+          ? "relative w-full flex justify-center px-6 py-24"
+          : "absolute inset-0 flex items-start justify-start px-10 py-20"
+      }
+      `}
+    >
 
       {/* Project container */}
-      <div className="w-full md:flex-1 flex flex-col gap-6 md:gap-8 relative max-w-xl md:max-w-none">
+      <div
+        className={`
+        relative flex flex-col gap-6 md:gap-8
+        ${isMobile ? "w-full max-w-md" : "flex-1 max-w-xl"}
+        `}
+      >
 
-        {/* Close button */}
-        {onClose && (
+        {/* Close button (desktop only) */}
+        {!isMobile && onClose && (
           <button
             onClick={onClose}
             className="absolute top-0 right-0 text-white text-3xl font-bold hover:text-red-400"
@@ -54,6 +68,7 @@ export default function ProjectsSection({ onClose }) {
             transition-all duration-300 hover:bg-white/20 hover:scale-[1.02]
             hover:shadow-[0_0_25px_rgba(255,255,255,0.15)]"
           >
+
             {/* Title + Github */}
             <div className="flex items-center justify-between">
               <h3 className="text-xl md:text-2xl font-semibold text-white">
@@ -91,8 +106,8 @@ export default function ProjectsSection({ onClose }) {
         ))}
       </div>
 
-      {/* Desktop space for 3D canvas */}
-      <div className="hidden md:block flex-1"></div>
+      {/* Desktop empty space */}
+      {!isMobile && <div className="flex-1"></div>}
 
     </div>
   );

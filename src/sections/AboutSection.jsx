@@ -5,14 +5,17 @@ export default function AboutSection({ onClose, isMobile }) {
     <div
       className={`
       z-20 pointer-events-auto
-      ${isMobile
-        ? "relative w-full flex justify-center px-6 py-20"
-        : "absolute inset-0 flex items-center justify-start px-12 py-24"}
+      ${
+        isMobile
+          ? "relative w-full flex justify-center px-6 py-24"
+          : "absolute inset-0 flex items-center justify-start px-12 py-24"
+      }
       `}
     >
       {/* Glass Card */}
       <div
         className={`
+        relative
         bg-white/10 backdrop-blur-md text-white rounded-xl
         ${isMobile ? "w-full max-w-md p-6" : "max-w-xl p-10"}
         space-y-6 border border-white/20
@@ -22,7 +25,7 @@ export default function AboutSection({ onClose, isMobile }) {
         {!isMobile && onClose && (
           <button
             onClick={onClose}
-            className="absolute top-6 right-8 text-white text-2xl hover:text-red-400"
+            className="absolute top-6 right-8 text-white text-2xl hover:text-red-400 transition"
           >
             ✕
           </button>
@@ -44,6 +47,7 @@ export default function AboutSection({ onClose, isMobile }) {
           React, Python, and cloud computing.
         </p>
 
+        {/* Resume Download Button */}
         <a
           href="/Ananya_Singh_Resume.pdf"
           download

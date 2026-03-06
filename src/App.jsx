@@ -137,19 +137,19 @@ export default function App() {
       </section>
 
       <section className="snap-start min-h-screen flex items-center justify-center px-6">
-        <AboutSection />
+        <AboutSection isMobile={isMobile} />
       </section>
 
       <section className="snap-start min-h-screen flex items-center justify-center px-6">
-        <ProjectsSection />
+        <ProjectsSection isMobile={isMobile} />
       </section>
 
       <section className="snap-start min-h-screen flex items-center justify-center px-6">
-        <SkillSection />
+        <SkillSection isMobile={isMobile} />
       </section>
 
       <section className="snap-start min-h-screen flex items-center justify-center px-6">
-        <ContactSection />
+        <ContactSection isMobile={isMobile} />
       </section>
 
     </div>
@@ -258,28 +258,36 @@ export default function App() {
 
       {/* SECTIONS */}
       {activeSection === "About" && (
-        <AboutSection onClose={() => {
+        <AboutSection 
+          isMobile={isMobile}
+          onClose={() => {
           setSelectedPlanet(null);
           setActiveSection(null);
         }} />
       )}
 
       {activeSection === "Projects" && (
-        <ProjectsSection onClose={() => {
+        <ProjectsSection
+          isMobile={isMobile}
+          onClose={() => {
           setSelectedPlanet(null);
           setActiveSection(null);
         }} />
       )}
 
       {activeSection === "Skills" && (
-        <SkillSection onClose={() => {
+        <SkillSection 
+          isMobile={isMobile}
+          onClose={() => {
           setSelectedPlanet(null);
           setActiveSection(null);
         }} />
       )}
 
       {activeSection === "Contact" && (
-        <ContactSection onClose={() => {
+        <ContactSection 
+          isMobile={isMobile}
+          onClose={() => {
           setSelectedPlanet(null);
           setActiveSection(null);
         }} />

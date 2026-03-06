@@ -1,4 +1,6 @@
-export default function SkillsSection({ onClose }) {
+// src/sections/SkillsSection.jsx
+
+export default function SkillsSection({ onClose, isMobile }) {
   const skillCategories = [
     {
       title: "Frontend",
@@ -19,17 +21,31 @@ export default function SkillsSection({ onClose }) {
   ];
 
   return (
-    <div className="absolute inset-0 z-20 flex items-center md:items-center justify-center md:justify-start px-4 md:px-10 py-16 md:py-20 pointer-events-auto overflow-y-auto">
+    <div
+      className={`
+      z-20 pointer-events-auto
+      ${
+        isMobile
+          ? "relative w-full flex justify-center px-6 py-24"
+          : "absolute inset-0 flex items-center justify-start px-10 py-20"
+      }
+      `}
+    >
 
       {/* Glass Panel */}
-      <div className="w-full md:flex-1 max-w-lg md:max-w-2xl relative">
-        <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 md:p-8 space-y-6 md:space-y-8 text-white relative">
+      <div
+        className={`
+        relative
+        ${isMobile ? "w-full max-w-md" : "flex-1 max-w-2xl"}
+        `}
+      >
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 md:p-8 space-y-6 md:space-y-8 text-white relative border border-white/20">
 
-          {/* Close Button */}
-          {onClose && (
+          {/* Close Button (desktop only) */}
+          {!isMobile && onClose && (
             <button
               onClick={onClose}
-              className="absolute top-3 right-3 md:top-4 md:right-4 text-white text-2xl md:text-3xl font-bold hover:text-red-400 transition"
+              className="absolute top-4 right-4 text-white text-3xl font-bold hover:text-red-400 transition"
             >
               ✕
             </button>
@@ -60,8 +76,8 @@ export default function SkillsSection({ onClose }) {
         </div>
       </div>
 
-      {/* Empty right space on desktop */}
-      <div className="hidden md:block flex-1"></div>
+      {/* Empty right space (desktop only) */}
+      {!isMobile && <div className="flex-1"></div>}
 
     </div>
   );
