@@ -1,45 +1,52 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 
-function Navigation({ onNavigate }) {
+function Navigation({ onNavigate, isMobile, closeMenu }) {
+
+  const handleClick = (section) => {
+    if (isMobile) {
+      const el = document.getElementById(section);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      closeMenu();
+    } else {
+      onNavigate(section);
+      closeMenu();
+    }
+  };
+
   return (
-    <ul className="nav-ul flex gap-6">
+    <ul className="nav-ul flex flex-col sm:flex-row gap-6">
       <li className="nav-li">
         <button
           className="nav-link text-white hover:text-amber-100"
-          onClick={() => window.location.href = "/" }
-        >
-          Home
-        </button>
-      </li>
-      <li className="nav-li">
-        <button
-          className="nav-link text-white hover:text-amber-100"
-          onClick={() => onNavigate("About", [-5, 20, 0])}
+          onClick={() => handleClick("About")}
         >
           About
         </button>
       </li>
+
       <li className="nav-li">
         <button
           className="nav-link text-white hover:text-amber-100"
-          onClick={() => onNavigate("Projects", [5, 10, 5])}
+          onClick={() => handleClick("Projects")}
         >
           Projects
         </button>
       </li>
+
       <li className="nav-li">
         <button
           className="nav-link text-white hover:text-amber-100"
-          onClick={() => onNavigate("Skills", [10, 0, 10])}
+          onClick={() => handleClick("Skills")}
         >
           Skills
         </button>
       </li>
+
       <li className="nav-li">
         <button
           className="nav-link text-white hover:text-amber-100"
-          onClick={() => onNavigate("Contact", [-5, 0, 20])}
+          onClick={() => handleClick("Contact")}
         >
           Contact
         </button>
@@ -48,13 +55,14 @@ function Navigation({ onNavigate }) {
   );
 }
 
-const Navbar = ({ onNavigate }) => {
+const Navbar = ({ onNavigate, isMobile }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed inset-x-0 z-20 w-full backdrop-blur-lg bg-primary/40">
+    <div className="fixed inset-x-0 z-30 w-full backdrop-blur-lg bg-primary/40">
       <div className="mx-auto c-space max-w-7xl">
         <div className="flex items-center justify-between py-2 sm:py-0">
+
           <a
             href="/"
             className="text-3xl font-bold transition-colors text-white hover:text-amber-100"
@@ -62,13 +70,13 @@ const Navbar = ({ onNavigate }) => {
             Ananya
           </a>
 
-          {/* Hamburger for mobile */}
+          {/* Hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex cursor-pointer text-neutral-400 hover:text-white focus:outline-none sm:hidden"
           >
             <img
-              src={isOpen ? "assets/close.svg" : "assets/menu.svg"}
+              src={isOpen ? "/close.svg" : "/menu.svg"}
               className="w-6 h-6"
               alt="toggle"
             />
@@ -76,8 +84,13 @@ const Navbar = ({ onNavigate }) => {
 
           {/* Desktop nav */}
           <nav className="hidden sm:flex">
-            <Navigation onNavigate={onNavigate} />
+            <Navigation
+              onNavigate={onNavigate}
+              isMobile={isMobile}
+              closeMenu={() => setIsOpen(false)}
+            />
           </nav>
+
         </div>
       </div>
 
@@ -87,14 +100,18 @@ const Navbar = ({ onNavigate }) => {
           className="block overflow-hidden text-center sm:hidden"
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
-          style={{ maxHeight: "100vh" }}
           transition={{ duration: 0.3 }}
         >
           <nav className="pb-5">
-            <Navigation onNavigate={onNavigate} />
+            <Navigation
+              onNavigate={onNavigate}
+              isMobile={true}
+              closeMenu={() => setIsOpen(false)}
+            />
           </nav>
         </motion.div>
       )}
+
     </div>
   );
 };

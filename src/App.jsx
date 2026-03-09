@@ -4,11 +4,10 @@ import { useState, useEffect, useMemo } from "react";
 import { Suspense } from "react";
 import Loader from "./components/Loader";
 
-import Space from "./components/space";
+import Space from "./components/Space";
 import Hero from "./components/HeroText";
 import Navbar from "./components/Navbar";
 import Planet from "./components/Planet";
-import MobilePlanets from "./components/MobilePlanets";
 
 import AboutSection from "./sections/AboutSection";
 import ProjectsSection from "./sections/ProjectSection";
@@ -110,14 +109,20 @@ export default function App() {
     <div className="relative w-screen h-screen bg-black overflow-hidden">
 
       {/* NAVBAR */}
-      <div className="absolute top-0 left-0 w-full z-30">
-        <Navbar
-          onNavigate={(sectionName) => {
-            setSelectedPlanet(sectionName);
-            setActiveSection(sectionName);
-          }}
-        />
-      </div>
+<div className="absolute top-0 left-0 w-full z-30">
+  <Navbar
+    isMobile={isMobile}
+    onNavigate={(sectionName) => {
+      if (isMobile) {
+        const el = document.getElementById(sectionName);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      } else {
+        setSelectedPlanet(sectionName);
+        setActiveSection(sectionName);
+      }
+    }}
+  />
+</div>
 
       {/* ================= MOBILE / SLOW INTERNET BACKGROUND ================= */}
   {!use3D && (
@@ -138,19 +143,19 @@ export default function App() {
          <Hero />
         </section>
 
-        <section className="snap-start min-h-screen flex items-center justify-center px-6">
+        <section id="About" className="snap-start min-h-screen flex items-center justify-center px-6">
           <AboutSection isMobile={isMobile} />
         </section>
 
-        <section className="snap-start min-h-screen flex items-center justify-center px-6">
+        <section id="Projects" className="snap-start min-h-screen flex items-center justify-center px-6">
           <ProjectsSection isMobile={isMobile} />
         </section>
 
-        <section className="snap-start min-h-screen flex items-center justify-center px-6">
+        <section id="Skills" className="snap-start min-h-screen flex items-center justify-center px-6">
           <SkillSection isMobile={isMobile} />
         </section>
 
-        <section className="snap-start min-h-screen flex items-center justify-center px-6">
+        <section id="Contact" className="snap-start min-h-screen flex items-center justify-center px-6">
           <ContactSection isMobile={isMobile} />
         </section>
 
