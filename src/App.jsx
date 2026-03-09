@@ -1,11 +1,14 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, AdaptiveDpr, AdaptiveEvents } from "@react-three/drei";
 import { useState, useEffect, useMemo } from "react";
+import { Suspense } from "react";
+import Loader from "./components/Loader";
 
 import Space from "./components/space";
 import Hero from "./components/HeroText";
 import Navbar from "./components/Navbar";
 import Planet from "./components/Planet";
+import MobilePlanets from "./components/MobilePlanets";
 
 import AboutSection from "./sections/AboutSection";
 import ProjectsSection from "./sections/ProjectSection";
@@ -117,52 +120,46 @@ export default function App() {
       </div>
 
       {/* ================= MOBILE / SLOW INTERNET BACKGROUND ================= */}
-{!use3D && (
-  <div className="relative w-full h-screen overflow-hidden">
+  {!use3D && (
+    <div className="relative w-full h-screen overflow-hidden">
 
-    {/* Background */}
-    <div
-      className="fixed inset-0 bg-cover bg-center opacity-60"
-      style={{ backgroundImage: "url('/milkyway.jpg')" }}
-    />
+      {/* Background */}
+      <div
+        className="fixed inset-0 bg-cover bg-center opacity-60"
+        style={{ backgroundImage: "url('/mobile.jpg')" }}
+      />
 
-    {/* Dark overlay */}
-    <div className="fixed inset-0 bg-black/50"></div>
+  
 
-    {/* Scroll Sections */}
-    <div className="relative z-10 flex flex-col snap-y snap-mandatory overflow-y-auto h-screen">
+      {/* Scroll Sections */}
+      <div className="relative z-10 flex flex-col snap-y snap-mandatory overflow-y-auto h-screen">
 
-      <section className="snap-start min-h-screen flex items-center justify-center px-6">
-        <Hero />
-      </section>
+        <section className="snap-start min-h-screen flex items-center justify-center px-6">
+         <Hero />
+        </section>
 
-      <img
-  src="/1.jpg"
-  className="w-20 h-20 rounded-full mx-auto mb-6 shadow-lg"
-/>
+        <section className="snap-start min-h-screen flex items-center justify-center px-6">
+          <AboutSection isMobile={isMobile} />
+        </section>
 
-      <section className="snap-start min-h-screen flex items-center justify-center px-6">
-        <AboutSection isMobile={isMobile} />
-      </section>
+        <section className="snap-start min-h-screen flex items-center justify-center px-6">
+          <ProjectsSection isMobile={isMobile} />
+        </section>
 
-      <section className="snap-start min-h-screen flex items-center justify-center px-6">
-        <ProjectsSection isMobile={isMobile} />
-      </section>
+        <section className="snap-start min-h-screen flex items-center justify-center px-6">
+          <SkillSection isMobile={isMobile} />
+        </section>
 
-      <section className="snap-start min-h-screen flex items-center justify-center px-6">
-        <SkillSection isMobile={isMobile} />
-      </section>
+        <section className="snap-start min-h-screen flex items-center justify-center px-6">
+          <ContactSection isMobile={isMobile} />
+        </section>
 
-      <section className="snap-start min-h-screen flex items-center justify-center px-6">
-        <ContactSection isMobile={isMobile} />
-      </section>
+      </div>
 
     </div>
-
-  </div>
 )}
 
-      {/* ================= DESKTOP 3D ================= */}
+      {/* ================= DESKTOP  ================= */}
       {use3D && (
         <Canvas
           className="absolute inset-0 z-0"
@@ -183,6 +180,8 @@ export default function App() {
             setActiveSection(null);
           }}
         >
+          <Suspense fallback={<Loader />}>
+
           {/* Auto Performance */}
           <AdaptiveDpr pixelated />
           <AdaptiveEvents />
@@ -228,19 +227,20 @@ export default function App() {
               }
             }}
           />
+          </Suspense>
         </Canvas>
       )}
 
       {/* HERO (Desktop only) */}
-{use3D && (
-  <div
-    className={`absolute inset-0 z-10 pointer-events-none
-    transition-opacity duration-700
-    ${selectedPlanet ? "opacity-0" : "opacity-100"}`}
-  >
-    <Hero />
-  </div>
-)}
+      {use3D && (
+        <div
+          className={`absolute inset-0 z-10 pointer-events-none
+          transition-opacity duration-700
+          ${selectedPlanet ? "opacity-0" : "opacity-100"}`}
+        >
+          <Hero />
+        </div>
+      )}
 
       {/* SCROLL HINT */}
       {showHint && !selectedPlanet && use3D && (
