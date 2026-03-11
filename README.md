@@ -1,16 +1,109 @@
-# React + Vite
+#  3D Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern **interactive 3D portfolio** built using **React, React Three Fiber, and Tailwind CSS**.
+The website features an immersive **space-themed experience** where users explore different sections of the portfolio by interacting with orbiting planets.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##  Live Demo
 
-## React Compiler
+🔗 **Portfolio Website:**
+(https://ananya-p0rtf0li0.netlify.app/)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+##  Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* 🌍 **Interactive 3D Environment**
+* 🪐 **Orbiting Planets Navigation**
+* ⚡ **Smooth Camera Transitions**
+* 📱 **Fully Responsive Design**
+* 🌌 **Space-themed UI**
+* 🔄 **Optimized Performance for Mobile & Slow Networks**
+* 🎯 Sections for **About, Projects, Skills, and Contact**
+
+---
+
+##  Technologies Used
+
+* **React**
+* **React Three Fiber**
+* **Three.js**
+* **Tailwind CSS**
+* **React Icons**
+* **Vite**
+
+---
+
+## 📂 Project Structure
+
+```
+src
+ ├── components
+ │   ├── HeroText.jsx
+ │   ├── Navbar.jsx
+ │   ├── Planet.jsx
+ │   ├── Space.jsx
+ │   └── Loader.jsx
+ │
+ ├── sections
+ │   ├── AboutSection.jsx
+ │   ├── ProjectsSection.jsx
+ │   ├── SkillSection.jsx
+ │   └── ContactSection.jsx
+ │
+ ├── App.jsx
+ └── main.jsx
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+Clone the repository:
+
+```bash
+git clone https://github.com/AS-pngg/Portfolio.git
+```
+
+Navigate into the project folder:
+
+```bash
+cd Portfolio
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+---
+
+## 📈 Future Improvements
+
+* Add more interactive 3D elements
+* Add project live demo links
+* Improve animations and transitions
+* Add dark/light theme toggle
+
+---
+
+## 👩‍💻 Author
+
+**Ananya Singh**
+
+* GitHub: https://github.com/AS-pngg
+* LinkedIn: https://www.linkedin.com/in/ananya-singh-943739326/
+
+---
+
+## ⭐ Support
+
+If you like this project, please consider **starring the repository** ⭐
