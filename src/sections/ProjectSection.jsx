@@ -19,6 +19,13 @@ export default function ProjectsSection({ onClose, isMobile }) {
       tech: ["C", "Linux", "System Programming"],
     },
     {
+      title: "Sorting Algorithm Visualizer",
+      description:
+        "An interactive visualization tool that demonstrates how sorting algorithms like Bubble Sort and Selection Sort work step-by-step using animated bars.",
+      github: "https://github.com/AS-pngg/sorting-visualizer",
+      tech: ["React", "JavaScript", "Tailwind"],
+    },
+    {
       title: "Green Path",
       description:
         "A frontend web application developed as part of Smart India Hackathon (SIH).",
